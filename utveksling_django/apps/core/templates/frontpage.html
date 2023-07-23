@@ -1,4 +1,22 @@
 {% extends "base.html" %}
+{% load core_extras %}
+
 {% block content %}
     <h1 class="title">forside</h1>
+    {% for university in universities %}
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <h2 class="title is-4">{{ university.name }}</h2>
+                    <p class="subtitle is-6">{{ university.city }}, {{university.country }}, {{university.programs_serialized|number_of_students:"kybernetikk og robotikk" }} rapporter fra kybernetikk og robotikk</p>
+                    <!-- <p class="subtitle is-6">antall rapporter:  university.reports[program] </p> -->
+                </div>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="{{ university.homepage }}" class="card-footer-item">Hjemmeside</a>
+        </footer>
+    </div>
+    {% endfor %}
 {% endblock %}
