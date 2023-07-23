@@ -1,14 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
+from geopy.geocoders import Nominatim
 
 
 with open('full_output.html', 'r') as html_file:
     soup = BeautifulSoup(html_file, 'lxml')
 
-    csv_string = 'name,slug,country,city,homepage,programs\n'
+    csv_string = 'name,slug,country,city,homepage,lat,lng,programs\n'
     university_programs = {}
     universities = {}
-    for row in soup.find_all(class_='clickable-row'):
+    n = len(soup.find_all(class_='clickable-row'))
+    for i, row in enumerate(soup.find_all(class_='clickable-row')):
+        print(f'{i}/{n}')
         columns = row.find_all('td')
 
         name = columns[2].text.strip().lower().replace("'", "")
@@ -17,11 +20,23 @@ with open('full_output.html', 'r') as html_file:
         city = columns[1].text.strip()
         program = columns[4].text.strip().lower().replace("'", "")
         homepage = ''
+        
+        geolocator = Nominatim(user_agent='myapplication')
+        # location = geolocator.geocode(f'{city}, {name}')
+        location = geolocator.geocode(city)
+        lat = 0
+        lon = 0
+        if location is not None:
+            # print(name)
+            # print(location.address)
+            lat = location.raw['lat']
+            lon = location.raw['lon']
 
         if not name in universities:
-            universities[name] = {'description': f'"{name}","{slug}","{country}","{city}","{homepage}"'}
+            universities[name] = {'description': f'"{name}","{slug}","{country}","{city}","{homepage}","{lat}","{lon}"'}
         universities[name][program] = universities[name][program] + 1 if program in universities[name] else 1
         # standard_name = standard_names[name] if name in standard_names else name
+
 
         # if not standard_name in university_programs:
         #     university_programs[standard_name] = {}

@@ -14,10 +14,10 @@ class UniversityViewSet(viewsets.ModelViewSet):
 class CsvUploader(TemplateView):
     template_name = 'csv_uploader.html'
 
-    def get(self, request, *args, **kwargs):
-        universities = University.objects.filter(user = request.user.id)
-        serializer = UniversitySerializer(universities, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    # def get(self, request, *args, **kwargs):
+    #     universities = University.objects.filter()
+    #     serializer = UniversitySerializer(universities, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         context = {
@@ -40,6 +40,8 @@ class CsvUploader(TemplateView):
                     country = record['country'],
                     city = record['city'],
                     homepage = record['homepage'],
+                    lat = record['lat'],
+                    lng = record['lng'],
                     programs_serialized = record['programs']
                 )
             except Exception as e:

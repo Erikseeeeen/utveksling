@@ -8,6 +8,8 @@ class University(models.Model):
     country = models.CharField(max_length=1023)
     city = models.CharField(max_length=1023)
     homepage = models.CharField(max_length=1023)
+    lat = models.CharField(max_length=65535)
+    lng = models.CharField(max_length=65535)
     programs_serialized = models.CharField(max_length=65535)
 
     class Meta:
