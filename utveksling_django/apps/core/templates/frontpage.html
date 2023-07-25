@@ -8,9 +8,10 @@
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
+                    <p>selected_program: {{ selected_program }}</p>
                     <h2 class="title is-4">{{ university.name }}</h2>
-                    <p class="subtitle is-6">{{ university.city }}, {{university.country }}, {{university.programs_serialized|number_of_students:"kybernetikk og robotikk" }} rapporter fra kybernetikk og robotikk</p>
-                    <!-- <p class="subtitle is-6">antall rapporter:  university.reports[program] </p> -->
+                    <p class="subtitle is-6">{{ university.city }}, {{university.country }}, {{university.programs_serialized|number_of_students:selected_program }} rapporter fra {{ selected_program }}</p>
+                    <!-- Make the above line update whenever  -->
                 </div>
             </div>
         </div>

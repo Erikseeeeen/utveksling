@@ -1,8 +1,8 @@
-from django.shortcuts import render
-# from templatetags import core_extras??
+from django.shortcuts import render, redirect
 
 from apps.universities.models import University
 from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -11,9 +11,9 @@ selected_program = ''
 def frontpage(request):
     universities = University.objects.all()
     sorted_universities = sorted(universities, key= lambda t: number_of_students(t.programs_serialized, selected_program))[::-1]
-
     context = {
-        'universities': sorted_universities
+        'universities': sorted_universities,
+        'selected_program': selected_program,
     }
     return render(request, 'frontpage.html', context)
 
@@ -27,6 +27,24 @@ def number_of_students(dict_string, program):
 
 def input_program(request):
     if request.method == "POST":
-        selected_program = request.POST.get("text")
-        # Do something with the received_text, e.g., save it to the database or perform any other operation
+        # Set selected_program to the 'text' field of the POST request
+        global selected_program
+        # selected_program = request.POST.get('text')
+        data = json.loads(request.body)
+        selected_program = data["text"]
+        print(selected_program)
+
+
+        print(selected_program)
+        request.session['selected_program'] = selected_program  # Save selected_program in session
+        # Refresh html
+        universities = University.objects.all()
+        sorted_universities = sorted(universities, key= lambda t: number_of_students(t.programs_serialized, selected_program))[::-1]
+        context = {
+            'universities': sorted_universities,
+            'selected_program': selected_program,
+        }
+        render(request, 'frontpage.html', context)
+
         return JsonResponse({"message": "Text received successfully"})
+
