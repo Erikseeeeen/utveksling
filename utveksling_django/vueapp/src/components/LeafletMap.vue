@@ -1,5 +1,5 @@
 <template>
-  <div style="height:800px; width:1000px">
+  <div style="height:60vh; width:100%">
 
     <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]">
       <l-tile-layer
@@ -44,7 +44,7 @@ export default {
   async mounted() {
     // Fetch the list of universities from Django backend
     try {
-      const response = await axios.get("/api/university"); // Replace with your Django API endpoint URL
+      const response = await axios.get("/api/university");
 
       // for each university in response.data, print university.lng
       // response.data.forEach((university) => {

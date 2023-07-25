@@ -17,3 +17,9 @@ class University(models.Model):
 
     def __str__(self):
         return self.name
+
+class Program(models.Model):
+    name = models.CharField(max_length=1023)
+
+    def __str__(self):
+        return self.name

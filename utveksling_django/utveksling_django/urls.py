@@ -19,15 +19,18 @@ from django.urls import path,include
 from django.urls import re_path as url
 from rest_framework import routers
 from apps.universities.views import *
-from apps.core.views import frontpage
+from apps.core.views import *
 
 router = routers.DefaultRouter()
 #API
 router.register(r'university', UniversityViewSet, basename='university')
+router.register(r'program', ProgramViewSet, basename='program')
 
 urlpatterns = [
     path('', frontpage, name='frontpage'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls), name='api'),
-    url('^csv-uploader/$', CsvUploader.as_view(), name='csv-uploader'),
+    path('api/input_program/', input_program, name='input_program'),
+    url('^csv-uploader-program/$', CsvUploaderProgram.as_view(), name='csv-uploader-program'),
+    url('^csv-uploader-university/$', CsvUploaderUniversity.as_view(), name='csv-uploader-university'),
 ]

@@ -9,6 +9,13 @@ module.exports = {
       devMiddleware: {
         // see https://github.com/webpack/webpack-dev-server/issues/2958
         writeToDisk: true, 
-      }
+      },
+      proxy: {
+        "/api": {
+          target: "http://localhost:8000", // Replace with your Django development server address
+          ws: true,
+          changeOrigin: true,
+        },
+      },
     },
 };
