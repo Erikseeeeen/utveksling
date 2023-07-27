@@ -12,9 +12,9 @@
                             <p class="subtitle is-6">{{ university.city }}, {{university.country }}</p>
                             {% if university.programs_serialized|number_of_students:selected_program > 1 %}
                                 <p class="subtitle is-6 is-pulled-right">rapporter fra <br />{{ selected_program }}</p>
-                            {% else %}
+                            {% else %}sk
                                 <p class="subtitle is-6 is-pulled-right">rapport fra <br />{{ selected_program }}</p>
-                            {% endif %}                            
+                            {% endif %}
                             <p class="title is-1 is-pulled-right" style="margin-right: 0.4rem;">{{ university.programs_serialized|number_of_students:selected_program }}</p>
 
 
