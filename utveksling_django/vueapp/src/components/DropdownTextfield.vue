@@ -1,6 +1,7 @@
 <template>
   <div class="input-container">
     <input class="styled-input" v-model="selectedProgram" @input="filterPrograms" placeholder="Skriv inn studieretning">
+    <!-- Placeholder should be set to selectedProgram, if it is not '' -->
     <ul v-if="showDropdown && filteredPrograms.length > 0" class="dropdown-list">
       <li v-for="program in filteredPrograms" :key="program.id" @click="selectProgram(program)">
         {{ program }}
@@ -10,8 +11,6 @@
     <button class="styled-button" @click="buttonClicked">Søk</button>
     <input type="hidden" name="csrfmiddlewaretoken" :value="csrfToken" />
 </template>
-
-  
 <script>
 import axios from 'axios';
 
@@ -68,13 +67,24 @@ export default {
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
+    saveToLocalStorage() {
+      localStorage.setItem('selectedProgram', this.selectedProgram);
+    },
+    loadFromLocalStorage() {
+      this.selectedProgram = localStorage.getItem('selectedProgram') || '';
+    },
   },
-  created()
-  {
+  created() {
     this.csrfToken = this.getCookie("csrftoken");
+    this.loadFromLocalStorage();
   },
   mounted() {
     this.fetchPrograms();
+  },
+  watch: {
+    selectedProgram() {
+      this.saveToLocalStorage();
+    },
   },
 };
 </script>
