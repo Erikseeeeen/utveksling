@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="container">
+  <div class="app-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
+    <div class="centered-container" style="margin-bottom: 1rem;">
       <h1>
         Utveksling
         <span class="typed-text">{{ typeValue }}</span>
@@ -8,16 +8,15 @@
         <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
       </h1>
     </div>
-    <div class="container">
-      <dropdown-textfield />
-      
-    </div>
-    <div class="container">
+    <div class="centered-container"> <!-- Added a class for centering -->
       <leaflet-map />
-      
+    </div>
+    <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
+      <dropdown-textfield />
     </div>
   </div>
 </template>
+
 
 
 <script>
@@ -111,6 +110,19 @@ export default {
   },
 }
 </script>
+
+
+<style>
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+}
+
+.centered-container {
+  width: 80%; /* Adjust the width to your preference */
+}
+</style>
 
 <style>
 #app {

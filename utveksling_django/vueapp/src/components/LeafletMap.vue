@@ -1,6 +1,5 @@
 <template>
-  <div style="height:60vh; width:100%">
-
+  <div class="map-container">
     <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]">
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -160,5 +159,13 @@ li {
 }
 a {
   color: #42b983;
+}
+.map-container {
+  height: 60vh;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* Center horizontally */
 }
 </style>

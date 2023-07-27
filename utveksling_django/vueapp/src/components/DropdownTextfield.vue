@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <div class="input-container">
-      <input class="styled-input" v-model="selectedProgram" @input="filterPrograms" placeholder="Skriv inn studieretning">
-      <ul v-if="showDropdown && filteredPrograms.length > 0">
-        <li v-for="program in filteredPrograms" :key="program.id" @click="selectProgram(program)">
-          {{ program }}
-        </li>
-      </ul>
+  <div class="input-container">
+    <input class="styled-input" v-model="selectedProgram" @input="filterPrograms" placeholder="Skriv inn studieretning">
+    <ul v-if="showDropdown && filteredPrograms.length > 0" class="dropdown-list">
+      <li v-for="program in filteredPrograms" :key="program.id" @click="selectProgram(program)">
+        {{ program }}
+      </li>
+    </ul>
     </div>
     <button class="styled-button" @click="buttonClicked">Søk</button>
     <input type="hidden" name="csrfmiddlewaretoken" :value="csrfToken" />
-  </div>
 </template>
 
   
@@ -82,6 +80,30 @@ export default {
 </script>
 
 <style>
+.dropdown-list {
+  position: absolute;
+  top: 100%; /* Position the dropdown below the input field */
+  left: 25%;
+  width: 50%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.styled-input {
+  /* Add your custom styles for the input field here */
+  width: 100%; /* Adjust the width to your preference */
+}
+
+.styled-button {
+  /* Add your custom styles for the button here */
+  margin-top: 8px; /* Add some spacing between the input and button */
+}
+
+
 /* Some basic styles for the dropdown */
 ul {
   list-style-type: none;
@@ -101,14 +123,17 @@ li:hover {
 /* Add your custom styles here */
 .input-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
 }
 
 .styled-input {
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  width: 300px;
-  font-size: 16px;
+  width: 50%;
+  font-size: 1rem;
 }
 
 .styled-button {
