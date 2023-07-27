@@ -8,13 +8,16 @@
       </li>
     </ul>
     </div>
-    <button class="styled-button" @click="buttonClicked">Søk</button>
+    <div class="styled-button-container"> <!-- Add the new container for the button -->
+      <button class="styled-button" @click="buttonClicked">Søk</button>
+    </div>
     <input type="hidden" name="csrfmiddlewaretoken" :value="csrfToken" />
 </template>
 <script>
 import axios from 'axios';
 
 export default {
+  
   data() {
     return {
       programs: [],         // All program names from the database
@@ -24,6 +27,7 @@ export default {
       showDropdown: true,   // Flag to control the visibility of the dropdown
     };
   },
+  emits: ['selected-program'],
   methods: {
     filterPrograms() {
       this.showDropdown = true;
@@ -51,6 +55,7 @@ export default {
       // Update selectedProgram when a program is clicked in the dropdown
       this.selectedProgram = programName;
       this.showDropdown = false;
+      this.$emit('selected-program', { name: this.selectedProgram });
     },
     fetchPrograms() {
       // Fetch program names from Django backend using API endpoint
@@ -72,6 +77,7 @@ export default {
     },
     loadFromLocalStorage() {
       this.selectedProgram = localStorage.getItem('selectedProgram') || '';
+      this.$emit('selected-program', { name: this.selectedProgram });
     },
   },
   created() {
@@ -89,7 +95,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .dropdown-list {
   position: absolute;
   top: 100%; /* Position the dropdown below the input field */
@@ -101,16 +107,6 @@ export default {
   max-height: 200px;
   overflow-y: auto;
   z-index: 1;
-}
-
-.styled-input {
-  /* Add your custom styles for the input field here */
-  width: 100%; /* Adjust the width to your preference */
-}
-
-.styled-button {
-  /* Add your custom styles for the button here */
-  margin-top: 8px; /* Add some spacing between the input and button */
 }
 
 
@@ -144,6 +140,13 @@ li:hover {
   border-radius: 5px;
   width: 50%;
   font-size: 1rem;
+}
+
+.styled-button-container {
+  /* Create a new container style for the button and center it */
+  display: flex;
+  justify-content: center;
+  margin-top: 8px; /* Add some spacing between the input and button */
 }
 
 .styled-button {

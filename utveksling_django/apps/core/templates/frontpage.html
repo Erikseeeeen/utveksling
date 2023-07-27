@@ -2,7 +2,7 @@
 {% load core_extras %}
 
 {% block content %}
-    {% for university in universities %}
+    <!-- {% for university in universities %}
         {% if university.programs_serialized|number_of_students:selected_program > 0 %}
             <div class="card" style="max-width: 1000px; margin: 0 auto;">
                 <div class="card-content">
@@ -34,9 +34,8 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <!-- <a href="{{ university.homepage }}" class="card-footer-item">Hjemmeside</a> -->
                 </footer>
             </div>
         {% endif %}
-    {% endfor %}
+    {% endfor %} -->
 {% endblock %}

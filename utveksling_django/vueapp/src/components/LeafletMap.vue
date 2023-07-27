@@ -48,33 +48,14 @@ export default {
     return {
       zoom: 2,
       mapCenter: [47.41322, -1.219482],
-      universities: [],
       input_program: "datateknologi",
     };
   },
-  async mounted() {
-    try {
-      this.fetchInputProgram();
-      const response = await axios.get("/api/university");
-      this.universities = response.data.map((university) => {
-        return {
-          lat: parseFloat(university.lat),
-          lng: parseFloat(university.lng),
-          report_id_list: JSON.parse(
-            university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
-          )[this.input_program],
-          // report_id_list is a list of strings containing report ids. number_of_students is the length of this list.
-          number_of_students: JSON.parse(
-            university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
-          )[this.input_program] ? JSON.parse(JSON.stringify(JSON.parse(
-            university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
-          )[this.input_program])).length : 0,
-          name: university.name, // Include the university name
-        };
-      });
-    } catch (error) {
-      console.error("Error fetching universities:", error);
-    }
+  props: {
+    universities: {
+    type: Array,
+    required: true,
+    },
   },
   methods: {
     fetchInputProgram() {

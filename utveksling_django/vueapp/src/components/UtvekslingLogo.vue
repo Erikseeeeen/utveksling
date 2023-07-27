@@ -98,7 +98,7 @@ created() {
 </script>
 
 
-<style>
+<style scoped>
 .app-container {
 display: flex;
 flex-direction: column;
@@ -108,9 +108,7 @@ align-items: center; /* Center the content horizontally */
 .centered-container {
 width: 80%; /* Adjust the width to your preference */
 }
-</style>
 
-<style>
 #app {
 font-family: Avenir, Helvetica, Arial, sans-serif;
 -webkit-font-smoothing: antialiased;
