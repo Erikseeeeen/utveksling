@@ -20,13 +20,16 @@
 
                             
                             
-                    <details>
-                        <summary>Rapporter</summary>
-                        <p>
-                            {% for report_id in report_ids %}
-                            {% endfor %}
-                        </p>
-                      </details>
+                            <details>
+                                <summary>Rapporter</summary>
+                                <p>
+                                    {% for report_id in university.programs_serialized|report_ids:selected_program %}
+                                        <a href="https://www.ntnu.no/studier/studier_i_utlandet/rapport/report_view.php?report_id={{ report_id }}&language=no">rapport {{ report_id }}</a>
+                                        <br />
+                                    {% endfor %}
+                                    
+                                </p>
+                            </details>
                         </div>
                     </div>
                 </div>

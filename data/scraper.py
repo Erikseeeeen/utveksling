@@ -41,6 +41,8 @@ with open('full_output.html', 'r') as html_file:
     universities = {}
     n = len(soup.find_all(class_='clickable-row'))
     for i, row in enumerate(soup.find_all(class_='clickable-row')):
+        href = row['data-href']
+        report_id = href[href.find('report_id=')+10:href.find('&language=')]
         print(f'{i}/{n}')
         columns = row.find_all('td')
 
@@ -72,7 +74,7 @@ with open('full_output.html', 'r') as html_file:
 
             if not name in universities:
                 universities[name] = university(city, f'"{name}","{slug}","{country}","{city}","{homepage}","{lat}","{lon}"')
-        universities[name].programs[program] = universities[name].programs[program] + 1 if program in universities[name].programs else 1
+        universities[name].programs[program] = universities[name].programs[program] + [report_id] if program in universities[name].programs else [report_id]
         # standard_name = standard_names[name] if name in standard_names else name
 
 

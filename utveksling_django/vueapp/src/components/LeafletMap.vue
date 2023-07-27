@@ -6,16 +6,17 @@
         layer-type="base"
         name="OpenStreetMap"
       ></l-tile-layer>
+
       <l-circle-marker
         v-for="(university, index) in universities"
         :key="index"
         :lat-lng="[university.lat, university.lng]"
-        :radius="this.zoom * Math.sqrt(university.number_of_students) * 3"
+        :radius="Math.sqrt(university.number_of_students) * 6"
         :color="university.number_of_students ? 'red' : 'transparent'"
       >
         <l-popup> 
           <i>{{ university.name }}</i>
-          
+
           <br />
           {{university.number_of_students}}
           <span v-if="university.number_of_students > 1">
@@ -59,9 +60,15 @@ export default {
         return {
           lat: parseFloat(university.lat),
           lng: parseFloat(university.lng),
-          number_of_students: JSON.parse(
+          report_id_list: JSON.parse(
             university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
           )[this.input_program],
+          // report_id_list is a list of strings containing report ids. number_of_students is the length of this list.
+          number_of_students: JSON.parse(
+            university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
+          )[this.input_program] ? JSON.parse(JSON.stringify(JSON.parse(
+            university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
+          )[this.input_program])).length : 0,
           name: university.name, // Include the university name
         };
       });
