@@ -1,3 +1,25 @@
+<template>
+  <div>
+    <div class="container">
+      <h1>
+        Utveksling
+        <span class="typed-text">{{ typeValue }}</span>
+        <span class="blinking-cursor">|</span>
+        <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
+      </h1>
+    </div>
+    <div class="container">
+      <dropdown-textfield />
+      
+    </div>
+    <div class="container">
+      <leaflet-map />
+      
+    </div>
+  </div>
+</template>
+
+
 <script>
 import LeafletMap from './components/LeafletMap.vue'
 import DropdownTextfield from './components/DropdownTextfield.vue'
@@ -89,24 +111,6 @@ export default {
   },
 }
 </script>
-
-
-<template>
-  <div>
-    <div class="container">
-      <h1>
-        Utveksling
-        <span class="typed-text">{{ typeValue }}</span>
-        <span class="blinking-cursor">|</span>
-        <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
-      </h1>
-    </div>
-    <div class="container">
-      <leaflet-map />
-      <dropdown-textfield />
-    </div>
-  </div>
-</template>
 
 <style>
 #app {

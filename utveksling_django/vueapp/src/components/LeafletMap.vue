@@ -39,11 +39,13 @@ export default {
       zoom: 2,
       mapCenter: [0, 0], // Default center universities
       universities: [], // Array to store the fetched universities
+      input_program: "datateknologi",
     };
   },
   async mounted() {
     // Fetch the list of universities from Django backend
     try {
+      this.fetchInputProgram();
       const response = await axios.get("/api/university");
 
       // for each university in response.data, print university.lng
@@ -65,7 +67,7 @@ export default {
           lat: parseFloat(university.lat),
           lng: parseFloat(university.lng),
           // university contains a dictionary 'dict' as a JSON string. Set the property number to the value of 'my number' in this serialized dict
-          number_of_students: JSON.parse(university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}"))["kybernetikk og robotikk"],
+          number_of_students: JSON.parse(university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}"))[this.input_program],
 
         };
       });
@@ -75,6 +77,17 @@ export default {
     }
   },
   methods: {
+    fetchInputProgram() {
+      // Fetch program names from Django backend using API endpoint
+      axios.get('/api/input_program')
+        .then(response => {
+          this.input_program = response.data['text'];
+          console.log(response);
+        })
+        .catch(error => {
+          console.error('Error fetching input_program:', error);
+        });
+    },
   },
 };
 </script>

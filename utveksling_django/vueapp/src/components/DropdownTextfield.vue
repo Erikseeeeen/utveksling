@@ -8,7 +8,7 @@
         </li>
       </ul>
     </div>
-    <button class="styled-button" @click="buttonClicked">Click Me</button>
+    <button class="styled-button" @click="buttonClicked">Søk</button>
     <input type="hidden" name="csrfmiddlewaretoken" :value="csrfToken" />
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     filterPrograms() {
+      this.showDropdown = true;
       // Check if this.selectedProgram is defined and a string
       if (typeof this.selectedProgram === 'string' && this.selectedProgram.trim() !== '') {
         const filterText = this.selectedProgram.toLowerCase();

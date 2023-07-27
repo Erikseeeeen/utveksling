@@ -26,9 +26,9 @@ def number_of_students(dict_string, program):
     return dict[program] if program in dict else 0
 
 def input_program(request):
+    global selected_program
     if request.method == "POST":
         # Set selected_program to the 'text' field of the POST request
-        global selected_program
         # selected_program = request.POST.get('text')
         data = json.loads(request.body)
         selected_program = data["text"]
@@ -48,3 +48,7 @@ def input_program(request):
 
         return JsonResponse({"message": "Text received successfully"})
 
+
+    if request.method == "GET":
+        # Return selected_program
+        return JsonResponse({"text": selected_program})

@@ -2,22 +2,38 @@
 {% load core_extras %}
 
 {% block content %}
-    <h1 class="title">forside</h1>
     {% for university in universities %}
-    <div class="card">
-        <div class="card-content">
-            <div class="media">
-                <div class="media-content">
-                    <p>selected_program: {{ selected_program }}</p>
-                    <h2 class="title is-4">{{ university.name }}</h2>
-                    <p class="subtitle is-6">{{ university.city }}, {{university.country }}, {{university.programs_serialized|number_of_students:selected_program }} rapporter fra {{ selected_program }}</p>
-                    <!-- Make the above line update whenever  -->
+        {% if university.programs_serialized|number_of_students:selected_program > 0 %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <h2 class="title is-4">{{ university.name }}</h2>
+                            <p class="subtitle is-6">{{ university.city }}, {{university.country }}</p>
+                            {% if university.programs_serialized|number_of_students:selected_program > 1 %}
+                                <p class="subtitle is-6 is-pulled-right">rapporter fra <br />{{ selected_program }}</p>
+                            {% else %}
+                                <p class="subtitle is-6 is-pulled-right">rapport fra <br />{{ selected_program }}</p>
+                            {% endif %}                            
+                            <p class="title is-1 is-pulled-right" style="margin-right: 0.4rem;">{{ university.programs_serialized|number_of_students:selected_program }}</p>
+
+
+                            
+                            
+                    <details>
+                        <summary>Rapporter</summary>
+                        <p>
+                            {% for report_id in report_ids %}
+                            {% endfor %}
+                        </p>
+                      </details>
+                        </div>
+                    </div>
                 </div>
+                <footer class="card-footer">
+                    <!-- <a href="{{ university.homepage }}" class="card-footer-item">Hjemmeside</a> -->
+                </footer>
             </div>
-        </div>
-        <footer class="card-footer">
-            <a href="{{ university.homepage }}" class="card-footer-item">Hjemmeside</a>
-        </footer>
-    </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
