@@ -3,18 +3,22 @@
     <transition-group name="list" tag="div">
       <div v-for="university in sortedUniversities" :key="university.number_id">
         <div class="slide-card"> <!-- Wrap the card content with a container div -->
-          <div v-if="getNumberOfStudents(university) > 0" class="card" style="max-width: 1000px; margin: 0 auto;">
+          <div v-if="university.number_of_students > 0" class="card" style="max-width: 1000px; margin: 0 auto;">
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
                   <h2 class="title is-4">{{ university.name }}</h2>
                   <p class="subtitle is-6">{{ university.city }}, {{ university.country }}</p>
 
-                  <p class="subtitle is-6 is-pulled-right">
-                    rapport{{ getReportPluralSuffix(getNumberOfStudents(university)) }} fra <br />
-                    {{ last_input_program }}
-                  </p>
-                  <p class="title is-1 is-pulled-right" style="margin-right: 0.4rem;">{{ getNumberOfStudents(university) }}</p>
+                  <transition name="fade" mode="out-in">
+                    <span v-if="last_input_program !== null" :key="last_input_program">
+                      <p class="subtitle is-6 is-pulled-right">
+                        rapport{{ getReportPluralSuffix(university.number_of_students) }} fra <br />
+                        {{ last_input_program }}
+                      </p>
+                      <p class="title is-1 is-pulled-right" style="margin-right: 0.4rem;">{{ university.number_of_students }}</p>
+                    </span>
+                  </transition>
                   
                   <details>
                     <summary>
@@ -71,9 +75,6 @@ export default {
   },
   methods: {
     // (Existing methods remain the same)
-    getNumberOfStudents(university) {
-      return university.number_of_students || 0;
-    },
     getReportIdList(university) {
       return university.report_id_list || [];
     },
@@ -89,6 +90,14 @@ export default {
 
 
 <style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease;
+
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {
