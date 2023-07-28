@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="this.last_input_program != ''">
     <transition-group name="list" tag="div" @before-enter="beforeEnter" @enter="enter">
       <div
         v-for="(university, index) in sortedUniversities"
