@@ -1,10 +1,14 @@
 <template>
-    <h1>
-        Utveksling
-        <span class="typed-text">{{ typeValue }}</span>
-        <span class="blinking-cursor">|</span>
-        <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
-    </h1>
+    <div class="app-container">
+        <div class="centered-container">
+            <h1 class="logo">
+                Utveksling
+                <span class="typed-text">{{ typeValue }}</span>
+                <span class="blinking-cursor">|</span>
+                <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
+            </h1>
+        </div>
+    </div>
 </template>
 
 
@@ -97,17 +101,17 @@ created() {
 }
 </script>
 
-
 <style scoped>
+.logo {
+  align-items: center;
+}
+
 .app-container {
 display: flex;
 flex-direction: column;
 align-items: center; /* Center the content horizontally */
 }
 
-.centered-container {
-width: 80%; /* Adjust the width to your preference */
-}
 
 #app {
 font-family: Avenir, Helvetica, Arial, sans-serif;
