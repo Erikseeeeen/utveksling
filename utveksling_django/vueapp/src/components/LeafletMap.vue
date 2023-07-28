@@ -20,10 +20,10 @@
           <br />
           {{university.number_of_students}}
           <span v-if="university.number_of_students > 1">
-            rapporter fra {{ this.input_program }}
+            rapporter fra {{ this.last_input_program }}
           </span>
           <span v-else>
-            rapport fra {{ this.input_program }}
+            rapport fra {{ this.last_input_program }}
           </span>
 
         </l-popup>
@@ -35,7 +35,6 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LCircleMarker, LPopup } from "@vue-leaflet/vue-leaflet";
-import axios from "axios";
 
 export default {
   components: {
@@ -48,7 +47,6 @@ export default {
     return {
       zoom: 2,
       mapCenter: [47.41322, -1.219482],
-      input_program: "datateknologi",
     };
   },
   props: {
@@ -56,18 +54,9 @@ export default {
     type: Array,
     required: true,
     },
-  },
-  methods: {
-    fetchInputProgram() {
-      axios
-        .get("/api/input_program")
-        .then((response) => {
-          this.input_program = response.data["text"];
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error("Error fetching input_program:", error);
-        });
+    last_input_program: {
+    type: String,
+    required: true,
     },
   },
 };
