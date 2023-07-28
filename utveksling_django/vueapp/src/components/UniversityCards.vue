@@ -1,10 +1,11 @@
 <template>
   <div v-if="this.last_input_program != ''">
-    <transition-group name="list" tag="div" @before-enter="beforeEnter" @enter="enter">
+    <transition-group name="list" tag="div">
       <div
-        v-for="(university, index) in sortedUniversities"
+        v-for="(university, index) in popupFilterUniversities"
         :key="university.number_id"
         :data-index="index"
+        @click="console.log(popup_university); (popup_university == undefined || popup_university.number_id != university.number_id) ? this.$emit('set-popup-university', university) : this.$emit('set-popup-university', undefined)"
         @mouseover="scaleUpCard(index)"
         @mouseleave="resetCardScale(index)"
       >
@@ -74,11 +75,18 @@ export default {
       type: String,
       required: true,
     },
+    popup_university: {
+      type: Object,
+    },
   },
   computed: {
     sortedUniversities() {
       // Sort the universities by their number_of_students property in descending order
       return this.universities.slice().sort((a, b) => b.number_of_students - a.number_of_students);
+    },
+    popupFilterUniversities() {
+      // if popup_university is not undefined, return popup_university in a list
+      return this.popup_university ? [this.popup_university] : this.sortedUniversities;
     },
   },
   watch: {
@@ -99,15 +107,6 @@ export default {
       const el = this.$el.querySelectorAll('.slide-card')[index];
       el.style.transition = 'transform 0.3s ease';
       el.style.transform = 'scale(1)';
-    },
-    beforeEnter(el) {
-      el.style.opacity = 0;
-      el.style.transform = 'translateX(30px)';
-    },
-    enter(el) {
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      el.style.opacity = 1;
-      el.style.transform = 'translateX(0)';
     },
     // (Existing methods remain the same)
     getReportIdList(university) {

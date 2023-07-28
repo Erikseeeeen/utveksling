@@ -9,13 +9,17 @@
       <utveksling-logo />
     </div>
     <div class="centered-container"> <!-- Added a class for centering -->
-      <leaflet-map :universities="this.universities" :last_input_program="this.last_input_program" />
+      <leaflet-map :universities="this.universities" :last_input_program="this.last_input_program" :popup_university="this.popup_university" @set-popup-university="handleSetPopupUniversity"/>
     </div>
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
       <dropdown-textfield :program_strings="this.programs.map(program => program.name)"  @last-input-program="handleTextFieldEvent"/>
     </div>
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
-      <university-cards :last_input_program="this.last_input_program" :universities="this.universities" />
+      <university-cards
+      :last_input_program="this.last_input_program"
+      :universities="this.universities"
+      :popup_university="this.popup_university"
+      @set-popup-university="handleSetPopupUniversity"/>
     </div>
   </div>
 </template>
@@ -37,6 +41,7 @@ export default {
       last_input_program: '',
       universities: [],
       programs: [],
+      popup_university: null, // Initialize popup_university to null
     }
   },
   async mounted() {
@@ -50,17 +55,18 @@ export default {
     UniversityCards,
   },
   methods: {
+    handleSetPopupUniversity(university) {
+      this.popup_university = university;
+    },
     handleTextFieldEvent(event) {
       this.last_input_program = event.name
       this.read_universities();
     },
     parseProgramsCSV(csvText) {
-      console.log("parsing csv");
       const csvData = this.$papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
       });
-      console.log("parsed csv");
 
       let programs = csvData.data.map((record) => {
           return {
@@ -91,18 +97,14 @@ export default {
     },
     async read_programs() {
       try {
-        console.log("trying to read programs");
         this.programs = this.parseProgramsCSV(ProgramsCsv);
-        console.log(this.programs[20]);
       } catch (error) {
         console.error("Error fetching programs:", error);
       }
     },
     async read_universities() {
       try {
-        console.log("trying to read universities");
         this.universities = this.parseUniversityCSV(UniversitiesCsv);
-        console.log(this.universities);
         // Sort this.universities by number_of_students
         // this.universities.sort((a, b) => {
         //   return b.number_of_students - a.number_of_students;
