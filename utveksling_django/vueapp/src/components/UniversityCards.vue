@@ -104,14 +104,10 @@ export default {
       el.style.opacity = 0;
       el.style.transform = 'translateX(30px)';
     },
-    enter(el, done) {
-      const delay = el.dataset.index * 100; // Add a dataset index to the div
-      setTimeout(() => {
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        el.style.opacity = 1;
-        el.style.transform = 'translateX(0)';
-        el.addEventListener('transitionend', done);
-      }, delay);
+    enter(el) {
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      el.style.opacity = 1;
+      el.style.transform = 'translateX(0)';
     },
     // (Existing methods remain the same)
     getReportIdList(university) {
