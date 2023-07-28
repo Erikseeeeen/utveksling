@@ -65,7 +65,7 @@ export default {
     },
     loadFromLocalStorage() {
       this.selected_program_string = localStorage.getItem('selected_program_string') || '';
-      this.$emit('selected-program', { name: this.selected_program_string });
+      this.$emit('last-input-program', { name: this.selected_program_string });
     },
   },
   created() {

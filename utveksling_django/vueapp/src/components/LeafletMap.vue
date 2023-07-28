@@ -8,7 +8,7 @@
       ></l-tile-layer>
 
       <l-circle-marker
-        v-for="(university, index) in universities"
+        v-for="(university, index) in filteredUniversities"
         :key="index"
         :lat-lng="[university.lat, university.lng]"
         :radius="Math.sqrt(university.number_of_students) * 6"
@@ -57,6 +57,11 @@ export default {
     last_input_program: {
     type: String,
     required: true,
+    },
+  },
+  computed: {
+    filteredUniversities() {
+      return this.universities.filter(university => university.name !== '');
     },
   },
 };
