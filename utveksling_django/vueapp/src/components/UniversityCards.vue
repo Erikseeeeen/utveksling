@@ -1,8 +1,14 @@
 <template>
   <div>
-    <transition-group name="list" tag="div">
-      <div v-for="university in sortedUniversities" :key="university.number_id">
-        <div class="slide-card"> <!-- Wrap the card content with a container div -->
+    <transition-group name="list" tag="div" @before-enter="beforeEnter" @enter="enter">
+      <div
+        v-for="(university, index) in sortedUniversities"
+        :key="university.number_id"
+        :data-index="index"
+        @mouseover="scaleUpCard(index)"
+        @mouseleave="resetCardScale(index)"
+      >
+        <div class="slide-card" v-show="showCard">
           <div v-if="university.number_of_students > 0" class="card" style="max-width: 1000px; margin: 0 auto;">
             <div class="card-content">
               <div class="media">
@@ -47,8 +53,18 @@
 
 <script>
 export default {
-
   name: 'UniversityCards',
+  data() {
+    return {
+      showCard: false, // Initialize to false, it will be toggled to true after mounted.
+    };
+  },
+  mounted() {
+    // Wait for the initial rendering and then show the card with a delay
+    setTimeout(() => {
+      this.showCard = true;
+    }, 200); // Adjust the delay value as needed
+  },
   props: {
     universities: {
       type: Array,
@@ -74,6 +90,29 @@ export default {
     },
   },
   methods: {
+    scaleUpCard(index) {
+      const el = this.$el.querySelectorAll('.slide-card')[index];
+      el.style.transition = 'transform 0.3s ease';
+      el.style.transform = 'scale(1.007)';
+    },
+    resetCardScale(index) {
+      const el = this.$el.querySelectorAll('.slide-card')[index];
+      el.style.transition = 'transform 0.3s ease';
+      el.style.transform = 'scale(1)';
+    },
+    beforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.transform = 'translateX(30px)';
+    },
+    enter(el, done) {
+      const delay = el.dataset.index * 100; // Add a dataset index to the div
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        el.style.opacity = 1;
+        el.style.transform = 'translateX(0)';
+        el.addEventListener('transitionend', done);
+      }, delay);
+    },
     // (Existing methods remain the same)
     getReportIdList(university) {
       return university.report_id_list || [];
