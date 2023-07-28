@@ -1,9 +1,9 @@
 <template>
   <div class="input-container">
-    <input class="styled-input" v-model="selected_program" @input="filterPrograms" placeholder="Skriv inn studieretning">
-    <!-- Placeholder should be set to selected_program, if it is not '' -->
-    <ul v-if="showDropdown && filtered_programs.length > 0" class="dropdown-list">
-      <li v-for="program in filtered_programs" :key="program.id" @click="selectProgram(program)">
+    <input class="styled-input" v-model="selected_program_string" @input="filterPrograms" placeholder="Skriv inn studieretning">
+    <!-- Placeholder should be set to selected_program_string, if it is not '' -->
+    <ul v-if="showDropdown && filtered_program_strings.length > 0" class="dropdown-list">
+      <li v-for="program in filtered_program_strings" :key="program.id" @click="selectProgram(program)">
         {{ program }}
       </li>
     </ul>
@@ -14,59 +14,46 @@
     <input type="hidden" name="csrfmiddlewaretoken" :value="csrfToken" />
 </template>
 <script>
-import axios from 'axios';
 
 export default {
   
   data() {
     return {
-      programs: [],         // All program names from the database
-      filtered_programs: [], // Filtered program names based on user input
-      selected_program: '',  // Currently selected program name
+      filtered_program_strings: [], // Filtered program names based on user input
+      selected_program_string: '',  // Currently selected program name
       csrfToken: null,
       showDropdown: true,   // Flag to control the visibility of the dropdown
     };
+  },
+  props: {
+    program_strings: {
+      type: Array,
+      required: true,
+    },
   },
   emits: ['last-input-program'],
   methods: {
     filterPrograms() {
       this.showDropdown = true;
-      // Check if this.selected_program is defined and a string
-      if (typeof this.selected_program === 'string' && this.selected_program.trim() !== '') {
-        const filterText = this.selected_program.toLowerCase();
-        this.filtered_programs = this.programs.filter(program =>
+      // Check if this.selected_program_string is defined and a string
+      if (typeof this.selected_program_string === 'string' && this.selected_program_string.trim() !== '') {
+        const filterText = this.selected_program_string.toLowerCase();
+        this.filtered_program_strings = this.program_strings.filter(program =>
           program.toLowerCase().includes(filterText)
         );
       } else {
-        // If this.selected_program is not a valid string, show all programs
-        this.filtered_programs = this.programs;
+        // If this.selected_program_string is not a valid string, show all program_strings
+        this.filtered_program_strings = this.program_strings;
       }
     },
     buttonClicked() {
-      const headers = { "X-CSRFToken": this.csrfToken };
-      axios
-      .post("/api/input_program/", { text: this.selected_program }, { headers })
-      .then((response) => {
-        console.log(response.data.message);
-        // location.reload();
-      });
-      this.$emit('last-input-program', { name: this.selected_program });
+      this.$emit('last-input-program', { name: this.selected_program_string });
       
     },
     selectProgram(programName) {
-      // Update selected_program when a program is clicked in the dropdown
-      this.selected_program = programName;
+      // Update selected_program_string when a program is clicked in the dropdown
+      this.selected_program_string = programName;
       this.showDropdown = false;
-    },
-    fetchPrograms() {
-      // Fetch program names from Django backend using API endpoint
-      axios.get('/api/program')
-        .then(response => {
-          this.programs = response.data.map(program => program.name);
-        })
-        .catch(error => {
-          console.error('Error fetching program names:', error);
-        });
     },
     getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -74,22 +61,19 @@ export default {
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
     saveToLocalStorage() {
-      localStorage.setItem('selected_program', this.selected_program);
+      localStorage.setItem('selected_program_string', this.selected_program_string);
     },
     loadFromLocalStorage() {
-      this.selected_program = localStorage.getItem('selected_program') || '';
-      this.$emit('selected-program', { name: this.selected_program });
+      this.selected_program_string = localStorage.getItem('selected_program_string') || '';
+      this.$emit('selected-program', { name: this.selected_program_string });
     },
   },
   created() {
     this.csrfToken = this.getCookie("csrftoken");
     this.loadFromLocalStorage();
   },
-  mounted() {
-    this.fetchPrograms();
-  },
   watch: {
-    selected_program() {
+    selected_program_string() {
       this.saveToLocalStorage();
     },
   },

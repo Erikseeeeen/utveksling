@@ -1,4 +1,10 @@
 <template>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+      <title>Utveksling</title>
+  </head>
   <div class="app-container" style="margin-top: 1.3rem;"> <!-- Added a class for centering -->
     <div class="centered-container" style="margin-bottom: 1rem;">
       <utveksling-logo />
@@ -7,7 +13,7 @@
       <leaflet-map :universities="this.universities" />
     </div>
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
-      <dropdown-textfield @last-input-program="handleTextFieldEvent"/>
+      <dropdown-textfield :program_strings="this.programs.map(program => program.name)"  @last-input-program="handleTextFieldEvent"/>
     </div>
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
       <university-cards :last_input_program="this.last_input_program" :universities="this.universities" />
@@ -22,7 +28,8 @@ import LeafletMap from './components/LeafletMap.vue'
 import DropdownTextfield from './components/DropdownTextfield.vue'
 import UtvekslingLogo from './components/UtvekslingLogo.vue'
 import UniversityCards from './components/UniversityCards.vue'
-import axios from "axios";
+import UniversitiesCsv from './universities.csv'
+import ProgramsCsv from './programs.csv'
 
 export default {
   name: 'App',
@@ -30,10 +37,12 @@ export default {
     return {
       last_input_program: '',
       universities: [],
+      programs: [],
     }
   },
   async mounted() {
-    await this.fetch_universities();
+    await this.read_universities();
+    await this.read_programs();
   },
   components: {
     LeafletMap,
@@ -44,31 +53,58 @@ export default {
   methods: {
     handleTextFieldEvent(event) {
       this.last_input_program = event.name
-      this.fetch_universities();
+      this.read_universities();
     },
-    async fetch_universities(){ // Define the fetch_universities method
-      try {
-        const university_response = await axios.get("/api/university");
-        this.universities = university_response.data.map((university) => {
+    parseProgramsCSV(csvText) {
+      console.log("parsing csv");
+      const csvData = this.$papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+      });
+      console.log("parsed csv");
+
+      let programs = csvData.data.map((record) => {
           return {
-            lat: parseFloat(university.lat),
-            lng: parseFloat(university.lng),
-            number_id: university.number_id, // Include the university number_id
-            city: university.city,
-            country: university.country,
-            report_id_list: JSON.parse(
-              university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
-            )[this.last_input_program],
-            // report_id_list is a list of strings containing report ids. number_of_students is the length of this list.
-            number_of_students: JSON.parse(
-              university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
-            )[this.last_input_program] ? JSON.parse(JSON.stringify(JSON.parse(
-              university.programs_serialized.replace(/'/g, '"').replace(/,}/g, "}")
-            )[this.last_input_program])).length : 0,
-            name: university.name, // Include the university name
+            name: record['program'],
           };
         });
-        // sort this.universities by number_of_students
+      return programs;
+    },
+    parseUniversityCSV(csvText) {
+      const csvData = this.$papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+      });
+
+      let universities = csvData.data.map((record, i) => {
+          return {
+            lat: record['lat'],
+            lng: record['lng'],
+            number_id: i,
+            city: record['city'],
+            country: record['country'],
+            report_id_list: JSON.parse(record['programs'].replace(/'/g, '"').replace(/,}/g, "}"))[this.last_input_program],
+            number_of_students: JSON.parse(record['programs'].replace(/'/g, '"').replace(/,}/g, "}"))[this.last_input_program] ? JSON.parse(JSON.stringify(JSON.parse(record['programs'].replace(/'/g, '"').replace(/,}/g, "}"))[this.last_input_program])).length : 0,
+            name: record['name'],
+          };
+        });
+      return universities;
+    },
+    async read_programs() {
+      try {
+        console.log("trying to read programs");
+        this.programs = this.parseProgramsCSV(ProgramsCsv);
+        console.log(this.programs[20]);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    },
+    async read_universities() {
+      try {
+        console.log("trying to read universities");
+        this.universities = this.parseUniversityCSV(UniversitiesCsv);
+        console.log(this.universities);
+        // Sort this.universities by number_of_students
         // this.universities.sort((a, b) => {
         //   return b.number_of_students - a.number_of_students;
         // });
@@ -76,6 +112,7 @@ export default {
         console.error("Error fetching universities:", error);
       }
     },
+
   }
 }
 </script>
