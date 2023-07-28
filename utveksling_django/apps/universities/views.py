@@ -24,6 +24,7 @@ class CsvUploaderUniversity(TemplateView):
     #     return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        University.objects.all().delete()
         context = {
             'messages':[]
         }
@@ -35,7 +36,7 @@ class CsvUploaderUniversity(TemplateView):
             )
         )
 
-        for record in csv_data.to_dict(orient="records"):
+        for i, record in enumerate(csv_data.to_dict(orient="records")):
             try:
                 print(record)
                 University.objects.create(
@@ -46,7 +47,8 @@ class CsvUploaderUniversity(TemplateView):
                     homepage = record['homepage'],
                     lat = record['lat'],
                     lng = record['lng'],
-                    programs_serialized = record['programs']
+                    programs_serialized = record['programs'],
+                    number_id = i,
                 )
             except Exception as e:
                 context['exceptions_raised'] = e

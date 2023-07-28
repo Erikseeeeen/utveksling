@@ -1,9 +1,9 @@
 <template>
   <div class="input-container">
-    <input class="styled-input" v-model="selectedProgram" @input="filterPrograms" placeholder="Skriv inn studieretning">
-    <!-- Placeholder should be set to selectedProgram, if it is not '' -->
-    <ul v-if="showDropdown && filteredPrograms.length > 0" class="dropdown-list">
-      <li v-for="program in filteredPrograms" :key="program.id" @click="selectProgram(program)">
+    <input class="styled-input" v-model="selected_program" @input="filterPrograms" placeholder="Skriv inn studieretning">
+    <!-- Placeholder should be set to selected_program, if it is not '' -->
+    <ul v-if="showDropdown && filtered_programs.length > 0" class="dropdown-list">
+      <li v-for="program in filtered_programs" :key="program.id" @click="selectProgram(program)">
         {{ program }}
       </li>
     </ul>
@@ -21,41 +21,42 @@ export default {
   data() {
     return {
       programs: [],         // All program names from the database
-      filteredPrograms: [], // Filtered program names based on user input
-      selectedProgram: '',  // Currently selected program name
+      filtered_programs: [], // Filtered program names based on user input
+      selected_program: '',  // Currently selected program name
       csrfToken: null,
       showDropdown: true,   // Flag to control the visibility of the dropdown
     };
   },
-  emits: ['selected-program'],
+  emits: ['last-input-program'],
   methods: {
     filterPrograms() {
       this.showDropdown = true;
-      // Check if this.selectedProgram is defined and a string
-      if (typeof this.selectedProgram === 'string' && this.selectedProgram.trim() !== '') {
-        const filterText = this.selectedProgram.toLowerCase();
-        this.filteredPrograms = this.programs.filter(program =>
+      // Check if this.selected_program is defined and a string
+      if (typeof this.selected_program === 'string' && this.selected_program.trim() !== '') {
+        const filterText = this.selected_program.toLowerCase();
+        this.filtered_programs = this.programs.filter(program =>
           program.toLowerCase().includes(filterText)
         );
       } else {
-        // If this.selectedProgram is not a valid string, show all programs
-        this.filteredPrograms = this.programs;
+        // If this.selected_program is not a valid string, show all programs
+        this.filtered_programs = this.programs;
       }
     },
     buttonClicked() {
       const headers = { "X-CSRFToken": this.csrfToken };
       axios
-      .post("/api/input_program/", { text: this.selectedProgram }, { headers })
+      .post("/api/input_program/", { text: this.selected_program }, { headers })
       .then((response) => {
         console.log(response.data.message);
-        location.reload();
+        // location.reload();
       });
+      this.$emit('last-input-program', { name: this.selected_program });
+      
     },
     selectProgram(programName) {
-      // Update selectedProgram when a program is clicked in the dropdown
-      this.selectedProgram = programName;
+      // Update selected_program when a program is clicked in the dropdown
+      this.selected_program = programName;
       this.showDropdown = false;
-      this.$emit('selected-program', { name: this.selectedProgram });
     },
     fetchPrograms() {
       // Fetch program names from Django backend using API endpoint
@@ -73,11 +74,11 @@ export default {
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
     saveToLocalStorage() {
-      localStorage.setItem('selectedProgram', this.selectedProgram);
+      localStorage.setItem('selected_program', this.selected_program);
     },
     loadFromLocalStorage() {
-      this.selectedProgram = localStorage.getItem('selectedProgram') || '';
-      this.$emit('selected-program', { name: this.selectedProgram });
+      this.selected_program = localStorage.getItem('selected_program') || '';
+      this.$emit('selected-program', { name: this.selected_program });
     },
   },
   created() {
@@ -88,7 +89,7 @@ export default {
     this.fetchPrograms();
   },
   watch: {
-    selectedProgram() {
+    selected_program() {
       this.saveToLocalStorage();
     },
   },

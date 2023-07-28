@@ -10,6 +10,7 @@ class University(models.Model):
     homepage = models.CharField(max_length=1023)
     lat = models.CharField(max_length=65535)
     lng = models.CharField(max_length=65535)
+    number_id = models.CharField(max_length=1023)
     programs_serialized = models.CharField(max_length=65535)
 
     class Meta:
