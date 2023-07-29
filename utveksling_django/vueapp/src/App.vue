@@ -14,7 +14,7 @@
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
       <dropdown-textfield :program_strings="this.programs.map(program => program.name)"  @last-input-program="handleTextFieldEvent"/>
     </div>
-    <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
+    <div class="centered-container" style="margin-top: 1rem; margin-bottom: 6rem;"> <!-- Added a class for centering -->
       <university-cards
       :last_input_program="this.last_input_program"
       :universities="this.universities"

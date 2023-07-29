@@ -46,23 +46,27 @@ with open('full_output.html', 'r') as html_file:
         print(f'{i}/{n}')
         columns = row.find_all('td')
 
+
         name = columns[2].text.strip().lower().replace("'", "")
         slug = unidecode(name.replace(',','').replace(' ','-'))
         country = columns[0].text.strip()
         city = columns[1].text.strip()
         program = columns[4].text.strip().lower().replace("'", "")
         homepage = ''
-        
+        year = ''.join(filter(str.isdigit,columns[5].text))[:4]
+        if(len(year) < 4):
+            year = '0'
+
         lat = 0
         lon = 0
-        # geolocator = Nominatim(user_agent='myapplication')
-        # # location = geolocator.geocode(f'{city}, {name}')
-        # location = geolocator.geocode(city)
-        # if location is not None:
-        #     # print(name)
-        #     # print(location.address)
-        #     lat = location.raw['lat']
-        #     lon = location.raw['lon']
+        geolocator = Nominatim(user_agent='myapplication')
+        # location = geolocator.geocode(f'{city}, {name}')
+        location = geolocator.geocode(f'{city}, {country}')
+        if location is not None:
+            # print(name)
+            # print(location.address)
+            lat = location.raw['lat']
+            lon = location.raw['lon']
 
         university_programs[program] = 1 if not program in university_programs else university_programs[program] + 1
 
@@ -74,7 +78,8 @@ with open('full_output.html', 'r') as html_file:
 
             if not name in universities:
                 universities[name] = university(city, f'"{name}","{slug}","{country}","{city}","{homepage}","{lat}","{lon}"')
-        universities[name].programs[program] = universities[name].programs[program] + [report_id] if program in universities[name].programs else [report_id]
+        report_dict = {'report_id':report_id, 'year':year}
+        universities[name].programs[program] = universities[name].programs[program] + [report_dict] if program in universities[name].programs else [report_dict]
         # standard_name = standard_names[name] if name in standard_names else name
 
 

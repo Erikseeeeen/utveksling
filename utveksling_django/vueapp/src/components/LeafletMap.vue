@@ -16,16 +16,17 @@
         :ref="'marker-' + university.number_id"
         @click="handlePopupChanged(university, university.number_id)"
       >
-        <l-popup @remove="handlePopupChanged(undefined)">
-          <i>{{ university.name }}</i>
-          <br />
+      <l-popup @remove="handlePopupChanged(undefined)">
+          
+        <b style="font-size: 1rem;">{{ university.name }}</b>
+          <!-- <br />
           {{ university.number_of_students }}
           <span v-if="university.number_of_students > 1">
             rapporter fra {{ last_input_program }}
           </span>
           <span v-else>
             rapport fra {{ last_input_program }}
-          </span>
+          </span> -->
         </l-popup>
       </l-circle-marker>
     </l-map>
@@ -127,4 +128,10 @@ a {
   align-items: center;
   margin: 0 auto; /* Center horizontally */
 }
+
+.university-name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 </style>
