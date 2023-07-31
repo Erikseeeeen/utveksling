@@ -61,7 +61,7 @@ export default {
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
     saveToLocalStorage() {
-      localStorage.setItem('selected_program_string', this.selected_program_string);
+      localStorage.setItem('last-input-program', this.selected_program_string);
     },
     loadFromLocalStorage() {
       this.selected_program_string = localStorage.getItem('selected_program_string') || '';
@@ -135,7 +135,7 @@ li:hover {
 }
 
 .styled-button {
-  background-color: #007bff;
+  background-color: #008fbb;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -145,7 +145,7 @@ li:hover {
 }
 
 .styled-button:hover {
-  background-color: #0056b3;
+  background-color: #77c2da;
 }
 
 /* Additional styles for the dropdown list (you can customize this as well) */

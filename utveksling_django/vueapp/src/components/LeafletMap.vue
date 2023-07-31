@@ -1,22 +1,28 @@
 <template>
   <div class="map-container">
-    <l-map ref="map" v-model:zoom="zoom" :center="mapCenter">
+    <l-map
+    ref="map"
+    v-model:zoom="zoom"
+    :min-zoom="2"
+    :center="mapCenter"
+    @zoomend="change_marker_radius"
+    @ready="change_marker_radius">
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer-type="base"
         name="OpenStreetMap"
+        class="map-tiles"
       ></l-tile-layer>
 
       <l-circle-marker
         v-for="university in filteredUniversities"
         :key="university.number_id"
         :lat-lng="[university.lat, university.lng]"
-        :radius="Math.pow(university.number_of_students, 0.7) * 6"
         :color="'red'"
         :ref="'marker-' + university.number_id"
-        @click="handlePopupChanged(university, university.number_id)"
+        @click="handlePopupChanged(university.number_id)"
       >
-      <l-popup @remove="handlePopupChanged(undefined)">
+      <l-popup @remove="handlePopupChanged(-1)">
           
         <b style="font-size: 1rem;">{{ university.name }}</b>
           <!-- <br />
@@ -47,7 +53,6 @@ export default {
     return {
       zoom: 2,
       mapCenter: [47.41322, -1.219482],
-      openedPopupNumberId: null, // To keep track of the currently opened popup's NumberId
     };
   },
   props: {
@@ -59,41 +64,71 @@ export default {
       type: String,
       required: true,
     },
-    popup_university: {
-      type: Object,
-      required: false,
-      default: null,
+    popup_university_id: {
+      type: Number,
+      required: true,
     },
   },
   computed: {
+    sortedUniversities() {
+      // Sort the universities by their number_of_students property in descending order
+      return this.universities.slice().sort((a, b) => a.number_of_students - b.number_of_students);
+    },
     filteredUniversities() {
-      return this.universities.filter(
+      return this.sortedUniversities.filter(
         (university) => university.name !== "" && university.number_of_students > 0
       );
     },
+    popup_university(){
+      return this.popup_university_id == -1 ? undefined : this.universities.find(university => university.number_id == this.popup_university_id);
+    },
   },
   watch: {
-    popup_university(newUniversity) {
-      if(newUniversity == undefined) {
-        this.closePopups(newUniversity);
+    popup_university_id(new_university_id) {
+      if(new_university_id == -1) {
+        this.closePopups(new_university_id);
       }
-      if (newUniversity) {
-        this.openPopupIfNeeded(newUniversity);
+      else {
+        this.openPopup(new_university_id);
       }
     },
   },
   methods: {
-    handlePopupChanged(university, number_id) {
-      // Emit a custom event when the circle-marker is clicked and pass the university data
-      this.$emit("set-popup-university", university);
-      this.openedPopupNumberId = number_id; // Update the opened popup NumberId
+    change_marker_radius(){
+      this.filteredUniversities.forEach(university => {
+        const markerRef = this.$refs['marker-' + university.number_id];
+        if(markerRef)
+          markerRef[0].leafletObject.setRadius(this.radius_coefficient(university.number_of_students));
+      });
     },
-    openPopupIfNeeded(university) {
-      const popupNumberId = university.number_id;
-      if (popupNumberId !== this.openedPopupNumberId) {
-        const markerRef = this.$refs['marker-' + popupNumberId];
-        markerRef[0].leafletObject.openPopup()
-      }
+    radius_coefficient(number_of_students)
+    {
+      const mapRef = this.$refs['map'];
+      const newzoom = mapRef.leafletObject.getZoom();
+      // Return sqrt
+      // return Math.pow(number_of_students, 0.5) / Math.pow(1.7, this.zoom);
+      return Math.pow(number_of_students, 0.5) * Math.pow(newzoom, 1.2) * 1;
+
+      // if(number_of_students == 1)
+      //   return 1;
+      // if(number_of_students <= 3)
+      //   return 2;
+      // if(number_of_students <= 7)
+      //   return 3;
+      // if(number_of_students <= 15)
+      //   return 4;
+      // return 5;
+    },
+    handlePopupChanged(university_id) {
+      // Emit a custom event when the circle-marker is clicked and pass the university data
+      this.$emit("set-popup-university", university_id);
+    },
+    openPopup(university_id) {
+      console.log("openPopup");
+      console.log(university_id);
+      const markerRef = this.$refs['marker-' + university_id];
+      console.log(markerRef);
+      markerRef[0].leafletObject.openPopup()
     },
     closePopups() {
       const mapRef = this.$refs['map'];
@@ -123,6 +158,7 @@ a {
 .map-container {
   height: 60vh;
   max-width: 1000px;
+  max-height: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,5 +169,9 @@ a {
   font-size: 1rem;
   font-weight: bold;
 }
+:root {
+    --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
 
 </style>

@@ -131,10 +131,10 @@ justify-content: left;
 align-items: left;
 }
 h1 {
-font-size: 3rem;
+font-size: min(3rem, 8vw);
 font-weight: normal;
 span.typed-text {
-    color: #d2b94b;
+    color: #008fbb;
 }
 }
 

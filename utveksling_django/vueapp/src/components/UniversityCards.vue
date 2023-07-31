@@ -6,7 +6,7 @@
         :key="university.number_id"
         :data-index="index"
         style="cursor: pointer; margin-bottom: 0;"
-        @click="console.log((popup_university == undefined || popup_university.number_id !== university.number_id)); (popup_university == undefined || popup_university.number_id !== university.number_id) ? this.$emit('set-popup-university', university) : this.$emit('set-popup-university', undefined)"
+        @click="(popup_university_id !== university.number_id) ? this.$emit('set-popup-university', university.number_id) : this.$emit('set-popup-university', -1)"
         @mouseover="scaleUpCard(index)"
         @mouseleave="resetCardScale(index)"
         >
@@ -14,7 +14,7 @@
           <div v-if="university.number_of_students > 0" class="card" style="max-width: 1000px; margin: 0 auto;">
             <div class="card-content" 
             :style="[ 
-              popup_university && popup_university.number_id === university.number_id ?
+              popup_university_id === university.number_id ?
               { 'border': '10px solid #dbdbdb', 'border-radius' : '5px', 'order' : '-1'} : '',
             ]">
               <div class="media">
@@ -30,7 +30,7 @@
                     <p class="title is-1 is-pulled-right" style="margin-right: 0.4rem;">{{ university.number_of_students }}</p>
                   </span>
                   
-                  <details v-if="popup_university && popup_university.number_id === university.number_id" :open="university === popup_university" style="pointer-events: none">
+                  <details v-if="popup_university_id === university.number_id" :open="popup_university_id === university.number_id" style="pointer-events: none">
                     <!-- <summary>
                         <span style="display: inline-block; cursor: pointer;">Detaljer</span>
                     </summary> -->
@@ -85,8 +85,9 @@ export default {
       type: String,
       required: true,
     },
-    popup_university: {
-      type: Object,
+    popup_university_id: {
+      type: Number,
+      required: true,
     },
   },
   computed: {
@@ -96,7 +97,14 @@ export default {
     },
     popupFilterUniversities() {
       // if popup_university is not undefined, return popup_university in a list
-      return this.popup_university ? [this.popup_university] : this.sortedUniversities;
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      console.log(this.popup_university_id);
+      console.log(this.popup_university);
+      return this.popup_university_id != -1 ? [this.popup_university] : this.sortedUniversities;
+    },
+    popup_university(){
+      console.log(this.popup_university_id);
+      return this.popup_university_id == -1 ? undefined : this.universities.find(university => university.number_id == this.popup_university_id);
     },
   },
   watch: {

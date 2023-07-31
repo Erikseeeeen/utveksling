@@ -4,12 +4,12 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
   </head>
-  <div class="app-container" style="margin-top: 1.3rem;"> <!-- Added a class for centering -->
+  <div class="app-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
     <div class="centered-container" style="margin-bottom: 1rem;">
       <utveksling-logo />
     </div>
     <div class="centered-container"> <!-- Added a class for centering -->
-      <leaflet-map :universities="this.universities" :last_input_program="this.last_input_program" :popup_university="this.popup_university" @set-popup-university="handleSetPopupUniversity"/>
+      <leaflet-map :universities="this.universities" :last_input_program="this.last_input_program" :popup_university_id="this.popup_university_id" @set-popup-university="handleSetPopupUniversity"/>
     </div>
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
       <dropdown-textfield :program_strings="this.programs.map(program => program.name)"  @last-input-program="handleTextFieldEvent"/>
@@ -18,7 +18,7 @@
       <university-cards
       :last_input_program="this.last_input_program"
       :universities="this.universities"
-      :popup_university="this.popup_university"
+      :popup_university_id="this.popup_university_id"
       @set-popup-university="handleSetPopupUniversity"/>
     </div>
   </div>
@@ -41,7 +41,7 @@ export default {
       last_input_program: '',
       universities: [],
       programs: [],
-      popup_university: null, // Initialize popup_university to null
+      popup_university_id: -1, // Initialize popup_university_id to null
     }
   },
   async mounted() {
@@ -55,8 +55,8 @@ export default {
     UniversityCards,
   },
   methods: {
-    handleSetPopupUniversity(university) {
-      this.popup_university = university;
+    handleSetPopupUniversity(university_id) {
+      this.popup_university_id = university_id;
     },
     handleTextFieldEvent(event) {
       this.last_input_program = event.name

@@ -1,0 +1,427 @@
+{
+    "politecnico di milano": [
+        "politecnio di milano",
+        "politecnico",
+        "politecninco di milano",
+        "politecnico di milano (leonardo)",
+        "politecnico milano",
+        "politecnico di milan"
+    ],
+    "la sapienza": [
+        "sapienza",
+        "università di roma, la sapienza",
+        "sapienza universita di roma",
+        "sapienza università di roma",
+        "sapienza universitet i roma",
+        "università degli studi di roma la sapienza",
+        "la sapienza roma"
+    ],
+    "università di bologna": [
+        "unibo",
+        "universita di bologna",
+        "universitetet i bologna",
+        "university of bologna",
+        "univeristetet i bologna",
+        "alma mater studiorum università di bologna",
+        "alma university",
+        "unibo - lalma mater studiorum - università di bologna",
+        "università di bologna (unibo)",
+        "univeristy of bologna"
+    ],
+    "università degli studi di padova": [
+        "universita degli studi di padova",
+        "universitá degli studi di padova",
+        "universita studi degli padova",
+        "university of padova",
+        "universita degli di padova",
+        "universitetet i padova",
+        "university of padua",
+        "universitetet i padova - unipd",
+        "università degli padova",
+        "università di padova",
+        "univerista degli studi di padova",
+        "universitá di padova",
+        "univerita degli studi di padova"
+    ],
+    "technische universität graz": [
+        "tu graz"
+    ],
+    "university of california santa barbara": [
+        "university of california santa barbara ucsb",
+        "universiry of california, santa barbara",
+        "uc santa barbara",
+        "university of california santa barbara (ucsb)"
+    ],
+    "danmarks tekniske universitet": [
+        "dtu"
+    ],
+    "technische universität delft": [
+        "tu delft",
+        "technische universiteit delft"
+    ],
+    "technische universität münchen": [
+        "tum",
+        "technical university of munich",
+        "technische universität münchen (tum)",
+        "technical university of munich - tum",
+        "tekniske universitet münchen",
+        "technishe universität münchen",
+        "techinsche universität münchen",
+        "tekniske universitetet i münchen (tum)",
+        "tekniske undiversitet i münchen",
+        "tu münchen",
+        "technische universität münchen tum",
+        "technische universität",
+        "technische universitet münchen",
+        "ludvig maximilians universität",
+        "ludwig maximilian universität, lmu"
+    ],
+    "aarhus universitet": [
+        "aahurs universitet",
+        "au- aarhus universitet"
+    ],
+    "politecnico di torino": [
+        "università degli studi di torino"
+    ],
+    "eurecom": [],
+    "universidad carlos iii de madrid": [
+        "universidad de politecnica de madrid",
+        "universidad politécnica de madrid",
+        "universidad carlos iii de madrid (uc3m)",
+        "universidad politécnica de madrid - upm",
+        "universidad complutense de madrid",
+        "universidad carlos iii de madird (uc3m)",
+        "universidad autónoma de madrid",
+        "universidad politecnica de madrid",
+        "universidad pontificia de comillas"
+    ],
+    "école polytechnique fédérale de lausanne": [
+        "epfl",
+        "ecole polytechnique fédérale lausanne (epfl)",
+        "epfl -  école polytechnique fédérale de lausanne"
+    ],
+    "university of british columbia": [
+        "ubc",
+        "university of british columbia (ubc)",
+        "the university of british columbia",
+        "university of british columbia(ubc)",
+        "university of british colombia, ubc",
+        "university of british columbia - ubc",
+        "the university of british coumbia"
+    ],
+    "instituto superior técnico": [
+        "ist",
+        "tecnico",
+        "instituto superior tecnico",
+        "instituto superior tecnicó",
+        "ist, instituto superior tecnico",
+        "ist - instituto superior técnico",
+        "insitituto superior tecnico",
+        "instituto superior tècnico",
+        "universidade de lisboa/instituto superior técnico",
+        "técnico lisboa",
+        "ist, instituto superior tecnico (universidade de lisboa)",
+        "universidad de lisboa",
+        "universidade autonoma de lisboa",
+        "universidade autónoma de lisboa (ual)",
+        "instituto técnico superior",
+        "tecnico lisboa",
+        "ual - universidade autonoma de lisboa",
+        "universidade autónoma de lisboa - ual",
+        "universidade autónoma de lisboa",
+        "tecnico (ist)",
+        "universitetet i lisboa",
+        "ist - instituto superior tecnico",
+        "universidad autónoma lisboa",
+        "tecnico lisboa (ist)",
+        "instituto superior técnico (ist)",
+        "superior tecnico",
+        "universidade de lisboa",
+        "ist - tecniso lisboa"
+    ],
+    "københavns universitet": [
+        "technical university of denmark (dtu)",
+        "dtu - danmarks tekniske universitet",
+        "danmarks tekniske universitet - dtu",
+        "danmarks tekniske universitet (dtu)",
+        "technical university of denmark",
+        "danmark tekniske universitet",
+        "technical university of danmark",
+        "dtu - technical university of denmark",
+        "danmarks tekniske universitet dtu",
+        "dtu / københavns universitet",
+        "tekniske universitet i danmark",
+        "dtu, danmarks tekniske universitet"
+    ],
+    "professionshøjskolen metropol": [],
+    "københavns professionshøjskole": [
+        "københavn professionshøjskolen"
+    ],
+    "san diego state university": [
+        "san diego state univesity",
+        "san diego state university (sdsu)"
+    ],
+    "university of california san diego": [
+        "ucsd"
+    ],
+    "korea advanced institute of science and technology": [
+        "kaist",
+        "kaist - korea advanced institute of science and technology"
+    ],
+    "katholieke universiteit leuven": [
+        "ku leuven"
+    ],
+    "university of hawaii at manoa": [
+        "university of hawaii"
+    ],
+    "universitat politècnica de valència": [
+        "universitat de valencia",
+        "upv",
+        "universitat politecnica de valencia",
+        "universidad de valencia",
+        "universitat politècnica de valènci",
+        "upv, universitat politècnica de valència",
+        "universidad de valencia (uv)",
+        "uv - universitat de valencia",
+        "universidad politécnica de valencia",
+        "universidad de politecnica de valencia",
+        "universidad politecnica de valencia (upv)",
+        "universitat politècnica de valència (upv)",
+        "university of valencia",
+        "universidad politecnica de valencia",
+        "upv - universidad politecnica de valencia",
+        "universitat politecnica de valencia (upv)",
+        "uv (universitat de valència)",
+        "upv - universitat politecnica de valencia",
+        "upv - universitat politècnica de valència",
+        "universitat politécnica de valéncia upv",
+        "universitat de valència",
+        "univeristetet i valencia",
+        "uv",
+        "universitat politécnica de valéncia",
+        "universitat politécnica de valencia",
+        "universitetet i valencia",
+        "universidad politécnica de valencia (upv)"
+    ],
+    "seoul national university": [
+    ],
+    "dongguk university": [],
+    "konkuk university": [],
+    "ewha womans university": [],
+    "sungkyunkwan university/skkku": [],
+    "yonsei university": [],
+    "sungkyunkwan university": [],
+    "harvard university": [
+        "harvard university (summer school)"
+    ],
+    "university of california, berkeley": [
+        "uc berkeley",
+        "university of california berkeley",
+        "berkeley",
+        "university of california - berkeley",
+        "uc berkeley extension",
+        "uc berkeley extention"
+    ],
+    "university of strathclyde": [],
+    "london metropolitan university": [],
+    "university of west london": [],
+    "imperial college london": [],
+    "queen mary university of london": [],
+    "university college london": [],
+    "kings college london": [],
+    "goldsmith university": [
+        "goldsmiths, university of london",
+        "goldsmiths university of london"
+    ],
+    "university of glasgow": [],
+    "ajou university": [],
+    "hawaii pacific university": [],
+    "kungliga tekniska högskolan": [
+        "kth",
+        "kungliga konsthögskolan",
+        "kungliga tekniska högskolan - kth",
+        "kth - kungliga tekniska högskolan",
+        "kunliga tekniska högskolan (kth)"
+    ],
+    "universidad de alicante": [
+        "universitetet i alicante",
+        "university of alicante"
+    ],
+    "universitat de barcelona": [
+        "university of barcelona",
+        "universidad de barcelona",
+    ],
+    "universitat ramon llull": [
+        "la salle, universitat ramon llull",
+        "iqs ramon lull",
+        "iqs - universitat ramon llull",
+        "iqs ramon llull"
+    ],
+    "university of york": [
+        "norwegian study centre - university of york",
+        "universitetet i york"
+    ],
+    "chung-ang university": [],
+    "technische universität berlin": [
+        "tu berlin",
+        "technisches universität berlin",
+        "technische üniversität in berlin (tub)",
+        "tekniske universitet i berlin",
+        "technische universität berlin (tu berlin)"
+    ],
+    "humboldt universität zu berlin": [],
+    "university of twente": [
+        "universiteit twente"
+    ],
+    "shanghai jiao tong university": [
+        "shanghai jiaotong university"
+    ],
+    "national taiwan university of science and technology": [
+        "national taiwan university of science and technology / taiwan tech",
+        "national taiwan university of science and technology (ntust)"
+    ],
+    "rheinisch-westfälische technische hochschule": [
+        "rwth",
+        "rwth aachen",
+        "rheinisch-westfälische technische hochschule aachen, rwth",
+        "rheinisch-westfalische technische hochschule aachen (rwth)",
+        "rheinisch-westfalische technische hochschule"
+    ],
+    "university of queensland": [
+        "university of queensland (uq)",
+        "qut - queensland university of technology",
+        "queensland",
+        "the university of queensland"
+    ],
+    "pontificia universidad católica de chile": [
+        "pontificia universidad catolica",
+        "pontificia universidad catolica de chile (puc)",
+        "pontificia universidad catolica de chile",
+        "pontificia universidad de chile"
+    ],
+    "bond university": [],
+    "griffith university": [],
+    "universitat politècnica de catalunya": [
+        "upc",
+        "upc eebe",
+        "upc - etseib",
+        "upc fib",
+        "upc, etsab",
+        "upc - fib",
+        "etsab",
+        "upc (campus eebe)",
+        "universitat politècnica de catalunya (upc)",
+        "upc - universitat politècnica de catalunya",
+        "universitat politecnica de catalunya",
+        "universitat politécnica de catalunya (upc)",
+        "universidad politecnica de cataluna",
+        "universitat politècnica de catalunya (upc) - fme",
+        "universitat politecnica de cataluna",
+        "universitat politecnica de catelunya",
+        "universidad polytechnica de catalunya",
+        "universitat politécnica de catalunya"
+    ],
+    "university of cape town": [
+        "university of cape town (uct)",
+        "univeristy of cape town"
+    ],
+    "kathmandu university": [
+        "kathmandu university - dhulikhel hospital",
+        "dhulikhel hospital",
+        "khatmandu university",
+        "kusms, kathmandu university school of medical science",
+        "kathmandu university vishwavidalaya",
+        "kathamndu university"
+    ],
+    "tribhuvan university": [],
+    "queensland university of technology": [
+        "qut",
+        "queensland university of technology (qut)",
+        "queensland university of technology, qut"
+    ],
+    "national university of singapore": [
+        "national university of singapore (nus)",
+        "national univeristy of singapore",
+        "national university of singapore, nus",
+        "nantional university of singapore (nus)",
+        "nus (national university of singapore)"
+    ],
+    "nanyang technologial university": [
+        "nanyang technological university (ntu)",
+        "nanyang technological university (ntu/nbs)",
+        "nanyang technological university"
+    ],
+    "university of otago": [
+        "university of otagp",
+        "otago university",
+        "univeristy of otago"
+    ],
+    "university of ghana": [
+        "university of ghana legon"
+    ],
+    "university of new south wales": [
+        "unsw",
+        "university of new south wales - unsw",
+        "universoty of new south wales",
+        "university of new south wales (unsw)",
+        "unsw - university of new south wales",
+        "university of new south wales(unsw)"
+    ],
+    "university of sydney": [],
+    "university of california, santa barbara": [
+        "ucsb"
+    ],
+    "massachusetts institute of technology": [
+        "massachusetts institute of technology (mit)",
+        "mit - massachusetts institute of technology"
+    ],
+    "royal melbourne institute of technology": [
+        "rmit",
+        "royal melbourne institute of technology university",
+        "royal melbourne institute of technology (rmit)"
+    ],
+    "university of namibia": [
+        "unam",
+        "university of namibia",
+        "uniyversity of namibia"
+    ],
+    "tokyo institute of technology": [
+        "tokyo institute of technology (tokyo tech)"
+    ],
+    "university of ljubljana": [
+        "univerza v ljubljani",
+        "university of ljubljana (univerza v ljubljani)"
+    ],
+    "university of waterloo": [],
+    "kathmandu medical college": [],
+    "tsinghua university": [
+        "tsinghua",
+        "tsinghua university (清华大学)"
+    ],
+    "university of california, san diego": [
+        "university of california san diego (ucsd/uc san diego)",
+        "university of california san diego (ucsd)",
+        "ucsd - university of california san diego",
+        "uc san diego",
+        "university california san diego",
+        "university of san diego, california"
+    ],
+    "university of auckland": [
+        "the university of auckland",
+        "university og auckland",
+        "university of auckland (uoa)"
+    ],
+    "university of wollongong": [],
+    "universidad de buenos aires": [
+        "universidad de buenos aires - filosofia y letras",
+        "universidad de buenos aires (uba)",
+        "universidad e buenos aires (uba), facultad de ingenieria"
+    ],
+    "universidad de granada": [
+        "la universidad de granada"
+    ],
+    "universität leipzig": [
+        "leipzig",
+        "universitetet i leipzig"
+    ]
+}
