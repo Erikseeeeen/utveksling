@@ -96,8 +96,8 @@ export default {
 .dropdown-list {
   position: absolute;
   top: 100%; /* Position the dropdown below the input field */
-  left: 25%;
-  width: 50%;
+  left: min(max(50%, 60rem), 95%)/2;
+  width: min(max(50%, 60rem), 95%);
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 5px;
