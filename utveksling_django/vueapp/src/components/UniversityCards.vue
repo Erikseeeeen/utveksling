@@ -153,6 +153,7 @@ export default {
 <style>
   .container {
     display: flex;
+    overflow: hidden;
   }
 
   /* Add this CSS to make the cards taller */
@@ -161,6 +162,7 @@ export default {
     transition: transform 0.3s ease;
     transform: scale(1);
     margin-bottom: 1rem; /* Add some bottom margin for spacing between cards */
+    overflow: hidden;
   }
 </style>
 
