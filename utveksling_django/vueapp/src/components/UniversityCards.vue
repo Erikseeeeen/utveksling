@@ -155,6 +155,18 @@ export default {
     display: flex;
     overflow: hidden;
   }
+  .container {
+    overflow: hidden;
+  }
+  .card-content {
+    overflow: hidden;
+  }
+  .media {
+    overflow: hidden;
+  }
+  .media-content {
+    overflow: hidden;
+  }
 
   /* Add this CSS to make the cards taller */
   .slide-card {
