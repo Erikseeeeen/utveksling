@@ -129,13 +129,15 @@ li:hover {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center the content horizontally */
+
 }
 
 .styled-input {
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  width: 50%;
+  width: min(max(50%, 60rem), 95%);
+  /* width: 100%; */
   font-size: 1rem;
 }
 
