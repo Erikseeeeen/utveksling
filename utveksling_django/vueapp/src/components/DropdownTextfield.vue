@@ -1,16 +1,24 @@
 <template>
   <div class="input-container">
-    <input class="styled-input" v-model="selected_program_string" @input="filterPrograms" placeholder="Skriv inn studieretning">
+    <input class="styled-input" v-model="selected_program_string" @input="filterPrograms" placeholder="Søk etter studieretning">
     <!-- Placeholder should be set to selected_program_string, if it is not '' -->
-    <ul v-if="showDropdown && filtered_program_strings.length > 0" class="dropdown-list">
-      <li v-for="program in filtered_program_strings" :key="program.id" @click="selectProgram(program)">
-        {{ program }}
+    <ul v-if="showDropdown && filtered_programs.length > 0" class="dropdown-list">
+      <li v-for="program in filtered_programs" :key="program.id" @click="selectProgram(program.name)">
+        <span :style="{ textAlign: 'left', display: 'inline-block', width: '50%', wordBreak: 'break-all' }">
+          {{ program.name }}
+        </span>
+        <span :style="{ textAlign: 'right', display: 'inline-block', width: '50%' }">
+          {{ program.number }} rapporter
+        </span>
       </li>
+      <!-- <li v-for="program in filtered_programs" :key="program.id" @click="selectProgram(program.name)">
+        
+      </li> -->
     </ul>
     </div>
-    <div class="styled-button-container"> <!-- Add the new container for the button -->
+    <!-- <div class="styled-button-container"> 
       <button class="styled-button" @click="buttonClicked">Søk</button>
-    </div>
+    </div> -->
     <input type="hidden" name="csrfmiddlewaretoken" :value="csrfToken" />
 </template>
 <script>
@@ -19,47 +27,51 @@ export default {
   
   data() {
     return {
-      filtered_program_strings: [], // Filtered program names based on user input
+      filtered_programs: [], // Filtered program names based on user input
       selected_program_string: '',  // Currently selected program name
       csrfToken: null,
       showDropdown: true,   // Flag to control the visibility of the dropdown
     };
   },
   props: {
-    program_strings: {
+    programs: {
       type: Array,
       required: true,
     },
   },
   emits: ['last-input-program'],
+  computed: {
+    
+  },
   methods: {
     filterPrograms() {
       this.showDropdown = true;
-      // Check if this.selected_program_string is defined and a string
+      // Check if this.selected_programs is defined and a string
       if (typeof this.selected_program_string === 'string' && this.selected_program_string.trim() !== '') {
         const filterText = this.selected_program_string.toLowerCase();
-        this.filtered_program_strings = this.program_strings.filter(program =>
-          program.toLowerCase().includes(filterText)
-        );
+        this.filtered_programs = this.programs.filter(program =>
+          program.name.toLowerCase().includes(filterText)
+        ).sort((a, b) => b.number - a.number);
       } else {
-        // If this.selected_program_string is not a valid string, show all program_strings
-        this.filtered_program_strings = this.program_strings;
+        // If this.selected_program is not a valid string, show all programs
+        this.filtered_programs = this.programs;
       }
     },
-    buttonClicked() {
-      this.$emit('last-input-program', { name: this.selected_program_string });
+    // buttonClicked() {
+    //   this.$emit('last-input-program', { name: this.selected_program });
       
-    },
+    // },
     selectProgram(programName) {
       // Update selected_program_string when a program is clicked in the dropdown
       this.selected_program_string = programName;
+      this.$emit('last-input-program', { name: programName });
       this.showDropdown = false;
     },
-    getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    },
+    // getCookie(name) {
+    //   const value = `; ${document.cookie}`;
+    //   const parts = value.split(`; ${name}=`);
+    //   if (parts.length === 2) return parts.pop().split(";").shift();
+    // },
     saveToLocalStorage() {
       localStorage.setItem('last-input-program', this.selected_program_string);
     },
@@ -69,7 +81,7 @@ export default {
     },
   },
   created() {
-    this.csrfToken = this.getCookie("csrftoken");
+    // this.csrfToken = this.getCookie("csrftoken");
     this.loadFromLocalStorage();
   },
   watch: {

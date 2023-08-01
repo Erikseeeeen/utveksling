@@ -1,14 +1,14 @@
 <template>
-    <div class="app-container">
-        <div class="centered-container">
-            <h1 class="logo">
-                Utveksling
-                <span class="typed-text">{{ typeValue }}</span>
-                <span class="blinking-cursor">|</span>
-                <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
-            </h1>
-        </div>
+  <div class="app-container">
+    <div class="centered-container">
+      <h1 class="logo">
+        Utveksling
+        <span class="typed-text">{{ typeValue }}</span>
+        <span class="blinking-cursor">|</span>
+        <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
+      </h1>
     </div>
+  </div>
 </template>
 
 
@@ -103,13 +103,17 @@ created() {
 
 <style scoped>
 .logo {
+  min-height: min(3rem * 1.5, 7vw * 1.5);
   align-items: center;
+  display: flex; /* Use flexbox to center the content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
 .app-container {
-display: flex;
-flex-direction: column;
-align-items: center; /* Center the content horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
 }
 
 
@@ -131,16 +135,18 @@ justify-content: left;
 align-items: left;
 }
 h1 {
-font-size: min(3rem, 8vw);
+font-size: min(3rem, 7vw);
 font-weight: normal;
 span.typed-text {
+  margin-left: 0.7rem;
     color: #008fbb;
 }
 }
 
+
 // Cursor blinking CSS Starts...
 .blinking-cursor {
-font-size: 3rem;
+font-size: min(3rem, 7vw);
 color: #2c3e50;
 -webkit-animation: 1s blink step-end infinite;
 -moz-animation: 1s blink step-end infinite;

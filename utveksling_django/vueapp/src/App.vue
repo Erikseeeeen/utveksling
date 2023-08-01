@@ -12,7 +12,7 @@
       <leaflet-map :universities="this.universities" :last_input_program="this.last_input_program" :popup_university_id="this.popup_university_id" @set-popup-university="handleSetPopupUniversity"/>
     </div>
     <div class="centered-container" style="margin-top: 1rem;"> <!-- Added a class for centering -->
-      <dropdown-textfield :program_strings="this.programs.map(program => program.name)"  @last-input-program="handleTextFieldEvent"/>
+      <dropdown-textfield :programs="this.programs"  @last-input-program="handleTextFieldEvent"/>
     </div>
     <div class="centered-container" style="margin-top: 1rem; margin-bottom: 6rem;"> <!-- Added a class for centering -->
       <university-cards
@@ -71,6 +71,7 @@ export default {
       let programs = csvData.data.map((record) => {
           return {
             name: record['program'],
+            number: record['number'],
           };
         });
       return programs;

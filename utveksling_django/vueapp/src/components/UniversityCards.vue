@@ -6,7 +6,7 @@
         :key="university.number_id"
         :data-index="index"
         style="cursor: pointer; margin-bottom: 0;"
-        @click="(popup_university_id !== university.number_id) ? this.$emit('set-popup-university', university.number_id) : this.$emit('set-popup-university', -1)"
+        @click="onCardClicked(university)"
         @mouseover="scaleUpCard(index)"
         @mouseleave="resetCardScale(index)"
         >
@@ -92,14 +92,9 @@ export default {
   },
   computed: {
     sortedUniversities() {
-      // Sort the universities by their number_of_students property in descending order
       return this.universities.slice().sort((a, b) => b.number_of_students - a.number_of_students);
     },
     popupFilterUniversities() {
-      // if popup_university is not undefined, return popup_university in a list
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-      console.log(this.popup_university_id);
-      console.log(this.popup_university);
       return this.popup_university_id != -1 ? [this.popup_university] : this.sortedUniversities;
     },
     popup_university(){
@@ -116,6 +111,13 @@ export default {
     },
   },
   methods: {
+    onCardClicked(university)
+    {
+      (this.popup_university_id !== university.number_id) ? this.$emit('set-popup-university', university.number_id) : this.$emit('set-popup-university', -1);
+      if(this.popup_university_id !== university.number_id){
+        window.scrollTo({ top: 0 });
+      }
+    },
     scaleUpCard(index) {
       const el = this.$el.querySelectorAll('.slide-card')[index];
       el.style.transition = 'transform 0.3s ease';
@@ -149,9 +151,17 @@ export default {
 
 
 <style>
-.container {
-  display: flex;
-}
+  .container {
+    display: flex;
+  }
+
+  /* Add this CSS to make the cards taller */
+  .slide-card {
+    height: auto; /* Set the height to "auto" to make the card expand vertically */
+    transition: transform 0.3s ease;
+    transform: scale(1);
+    margin-bottom: 1rem; /* Add some bottom margin for spacing between cards */
+  }
 </style>
 
 <!-- :class="{ 'highlight-card': popup_university && popup_university.number_id === university.number_id }" -->

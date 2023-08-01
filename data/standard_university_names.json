@@ -173,7 +173,8 @@
         "kaist - korea advanced institute of science and technology"
     ],
     "katholieke universiteit leuven": [
-        "ku leuven"
+        "ku leuven",
+        "ku leuven sint-lucas gent"
     ],
     "university of hawaii at manoa": [
         "university of hawaii"
@@ -419,11 +420,10 @@
         "leipzig",
         "universitetet i leipzig"
     ],
+    "universität wien": [
+        "universitetet i wien"
+    ],
     "boku, universität für bodenkultur": [
-        "universität wien",
-        "technische universität wien",
-        "universitetet i wien",
-        "tu wien"
     ],
     "osaka metropolitan university": [
         "osaka prefecture university",
@@ -466,8 +466,10 @@
     ],
     "universiteit gent": [
         "ghent university",
-        "university of gent",
-        "ku leuven sint-lucas gent"
+        "university of gent"
+    ],
+    "technische universität wien": [
+        "tu wien"
     ],
     "tu/e - technische universiteit eindhoven": [
         "eindhoven university of technology (technische universiteit eindhoven)",

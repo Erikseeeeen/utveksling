@@ -208,7 +208,7 @@ with open('full_output.html', 'r') as html_file:
         universities[university_name].programs[program] = universities[university_name].programs[program] + [report_dict] if program in universities[university_name].programs else [report_dict]
         
     universities_csv_string = 'name,slug,country,city,homepage,lat,lng,programs\n'
-    programs_csv_string = 'program\n'
+    programs_csv_string = 'program,number\n'
     for university_name in universities:
         universities_csv_string += universities[university_name].description + ','
         universities_csv_string += '"{'
@@ -218,15 +218,10 @@ with open('full_output.html', 'r') as html_file:
         universities_csv_string += '}"\n'
 
     for program in university_programs:
-        # programs_csv_string += f'"{program}", "{university_programs[program]}"\n'
-        programs_csv_string += f'"{program}"\n'
-    
-    # for university_name in universities:
-    #     num_reports = 0
-    #     for program in universities[university_name].programs:
-    #         num_reports += len(universities[university_name].programs[program])
-    #     if(num_reports > 5):
-    #         print(university_name, universities[university_name].city, num_reports)
+        if(university_programs[program] > 1):
+            # programs_csv_string += f'"{program}"\n'
+            programs_csv_string += f'"{program}","{university_programs[program]}"\n'
+
 
 
     with open("universities.csv", "wb") as file:
@@ -244,3 +239,6 @@ with open('full_output.html', 'r') as html_file:
         json.dump(blacklist_programs, file)
     with open("blacklist_university_names.json", "w") as file:
         json.dump(blacklist_university_names, file)
+
+
+# git subtree push --prefix utveksling_django/static/src/vue/dist origin gh-pages

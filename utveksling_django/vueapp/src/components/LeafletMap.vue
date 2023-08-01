@@ -3,7 +3,6 @@
     <l-map
     ref="map"
     v-model:zoom="zoom"
-    :min-zoom="2"
     :center="mapCenter"
     @zoomend="change_marker_radius"
     @ready="change_marker_radius">
@@ -92,12 +91,19 @@ export default {
         this.openPopup(new_university_id);
       }
     },
+    filteredUniversities() {
+      this.change_marker_radius();
+      // Wait for a frame
+      this.$nextTick(() => {
+        this.change_marker_radius();
+      });
+    }
   },
   methods: {
     change_marker_radius(){
       this.filteredUniversities.forEach(university => {
         const markerRef = this.$refs['marker-' + university.number_id];
-        if(markerRef)
+        if(markerRef && markerRef[0])
           markerRef[0].leafletObject.setRadius(this.radius_coefficient(university.number_of_students));
       });
     },
