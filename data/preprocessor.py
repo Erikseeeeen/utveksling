@@ -64,6 +64,19 @@ def find_standard_program(program, standard_programs, blacklist_programs):
         #     if program in name_list:
         #         program = list(standard_programs.keys())[i]
         #         break
+
+
+
+        # is_standard = False
+        # if program in standard_programs.keys():
+        #     is_standard = True
+        # if not program in standard_programs.keys():
+        #     for i, name_list in enumerate(standard_programs.values()):
+        #         if program in name_list:
+        #             program = list(standard_programs.keys())[i]
+        #             is_standard = True
+        # if not is_standard:
+        #     standard_programs[program] = []
     return program, standard_programs, blacklist_programs
 
 def find_standard_university(university_name, standard_university_names, blacklist_universities):
@@ -127,9 +140,9 @@ with open("standard_programs.json", "r") as file:
 standard_university_names = {}
 with open("standard_university_names.json", "r") as file:
     standard_university_names = json.load(file)
-for key in list(standard_university_names.keys()):
-    if len(standard_university_names[key]) == 0:
-        del standard_university_names[key]
+# for key in list(standard_university_names.keys()):
+#     if len(standard_university_names[key]) == 0:
+#         del standard_university_names[key]
 
 blacklist_programs = {}
 with open("blacklist_programs.json", "r") as file:
@@ -221,6 +234,8 @@ with open('full_output.html', 'r') as html_file:
         if(university_programs[program] > 1):
             # programs_csv_string += f'"{program}"\n'
             programs_csv_string += f'"{program}","{university_programs[program]}"\n'
+            if(not program in standard_programs.keys()):
+                print(program, university_programs[program])
 
 
 
